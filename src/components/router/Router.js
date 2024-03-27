@@ -1,4 +1,4 @@
-import logo from '../../logo.svg';
+import MovieList from "../movie/MovieList";
 
 /**
  * Will be responsible for routing.
@@ -8,9 +8,7 @@ import logo from '../../logo.svg';
  */
 function Router() {
   return (
-    <div className="App">
-      <p>Hello world!</p>
-    </div>
+    <MovieList />
   );
 }
 
