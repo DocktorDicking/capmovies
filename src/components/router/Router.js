@@ -1,28 +1,20 @@
 import logo from '../../logo.svg';
-import './App.css';
 
-function App() {
+/**
+ * Will be responsible for routing.
+ *
+ * @returns {JSX.Element}
+ * @constructor
+ */
+function Router() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>Hello world!</p>
     </div>
   );
 }
 
-export default App;
+export default Router;
 
 
 /*
@@ -33,7 +25,7 @@ TODO: Assignment 01:
 Display a list of movies using the movies.json in the public folder.
 * Create a movie model which holds: title, release year, cover img id.
 * Create a movie list component which utilized the move model.
-* load the movie.json in app.js
+* load the movie.json in router.js
 * Initialize the movie list component and feed the data to the component
 * Handle the data in the movie list and let it create a movie model (in the list) for each movie in the JSON
 
