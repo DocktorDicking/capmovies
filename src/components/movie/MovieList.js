@@ -1,7 +1,7 @@
 import MovieItem from "../../model/MovieItem";
 
 
-function MovieList() {
+function MovieList({allMovies}) {
     return (
         <div>
             <p>Movie List</p>

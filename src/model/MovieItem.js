@@ -1,5 +1,5 @@
 
-function MovieItem() {
+function MovieItem({movie}) {
     return (<div><p>Movie Item.</p></div>);
 }
 
