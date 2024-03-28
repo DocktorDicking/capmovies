@@ -1,22 +1,32 @@
 import MovieList from "../movie/MovieList";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import React, {useState, useEffect} from "react";
 
 /**
- * Will be responsible for routing.
+ * Will be responsible for routing and data fetching.
  *
  * @returns {JSX.Element}
  * @constructor
  */
 function RouterComponent() {
-    let allMovies = {};
+    const [allMovies, setMovies] = useState([]);
 
-    // Default fetching mechanism, getting date from public folder and parsing it to an array with objects.
-    async function fetchData() {
-        const response = await fetch('movies.json');
-        const data = await response.json();
-        allMovies = data.movies;
-    }
-    fetchData();
+    /*
+    Just using fetch() does not work and will result in an endless loop when using 'useState()'
+    Without useState() the data will not be rendered to the page since the render will happen before the
+    data is loaded.
+
+    Hence the combination of useState() and useEffect(). React will pick this up internally and monitor the
+    state object. When something changes, data is fetched, it will trigger a rerender.
+     */
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch('movies.json');
+            const data = await response.json();
+            setMovies(data.movies);
+        }
+        fetchData();
+    }, []);
 
     return (
         <Router>

@@ -1,14 +1,14 @@
 {
   "movies": [
-    {"title": "The Shawshank Redemption", "release_year": 1994, "image_id": "img01"},
-    {"title": "The Godfather", "release_year": 1972, "image_id": "img02"},
-    {"title": "Pulp Fiction", "release_year": 1994, "image_id": "img03"},
-    {"title": "Fight Club", "release_year": 1999, "image_id": "img04"},
-    {"title": "Forrest Gump", "release_year": 1994, "image_id": "img05"},
-    {"title": "Inception", "release_year": 2010, "image_id": "img06"},
-    {"title": "The Dark Knight", "release_year": 2008, "image_id": "img07"},
-    {"title": "The Matrix", "release_year": 1999, "image_id": "img08"},
-    {"title": "The Lord of the Rings: The Return of the King", "release_year": 2003, "image_id": "img09"},
-    {"title": "Interstellar", "release_year": 2014, "image_id": "img10"}
+    {"id": 1, "title": "The Shawshank Redemption", "release_year": 1994, "image_id": "img01"},
+    {"id": 2, "title": "The Godfather", "release_year": 1972, "image_id": "img02"},
+    {"id": 3, "title": "Pulp Fiction", "release_year": 1994, "image_id": "img03"},
+    {"id": 4, "title": "Fight Club", "release_year": 1999, "image_id": "img04"},
+    {"id": 5, "title": "Forrest Gump", "release_year": 1994, "image_id": "img05"},
+    {"id": 6, "title": "Inception", "release_year": 2010, "image_id": "img06"},
+    {"id": 7, "title": "The Dark Knight", "release_year": 2008, "image_id": "img07"},
+    {"id": 8, "title": "The Matrix", "release_year": 1999, "image_id": "img08"},
+    {"id": 9, "title": "The Lord of the Rings: The Return of the King", "release_year": 2003, "image_id": "img09"},
+    {"id": 10, "title": "Interstellar", "release_year": 2014, "image_id": "img10"}
   ]
 }
