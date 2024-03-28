@@ -1,11 +1,14 @@
 import MovieItem from "../../model/MovieItem";
+import List from '@mui/material/List';
 
 
 function MovieList({allMovies}) {
     return (
-        <div>
-            <ul>{allMovies && allMovies.map(movie => <MovieItem movie={movie} />)}</ul>
-        </div>
+
+
+        <List sx={{width: '100%', maxWidth: 360, bgcolor: 'background.paper'}}>
+            {allMovies && allMovies.map(movie => <MovieItem movie={movie}/>)}
+        </List>
     );
 }
 

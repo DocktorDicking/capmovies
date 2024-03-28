@@ -1,6 +1,7 @@
 import MovieList from "../movie/MovieList";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import React, {useState, useEffect} from "react";
+import {Box, Container, CssBaseline, ThemeProvider} from '@mui/material';
 
 /**
  * Will be responsible for routing and data fetching.
@@ -29,14 +30,31 @@ function RouterComponent() {
     }, []);
 
     return (
-        <Router>
-            <Routes>
-                <Route path="/movie/:id" element={<div><p>TODO</p></div>}/>
-                <Route path="/" element={<MovieList allMovies={allMovies}/>}/>
-            </Routes>
-        </Router>
+        <Container maxWidth="md">
+            <Box component="h2">Movie List</Box>
+            <Box component="div"
+                 sx={{
+                     p: 2,
+                     border: 3,
+                     borderColor: "black",
+                     display: "inline-block",
+                     textAlign: "center"
+                 }}
+            >
+                <Router>
+                    <Routes>
+                        <Route path="/movie/:id" element={<div><p>TODO</p></div>}/>
+                        <Route path="/" element={<MovieList allMovies={allMovies}/>}/>
+                    </Routes>
+                </Router>
+            </Box>
+        </Container>
     );
 }
+
+// TODO: Move the movie list to the left side of the screen as an menu, probably needs another component.
+// TODO: Introduce a canvas or empty page (where content will be displayed) on the right side, filling the screen.
+// TODO:
 
 export default RouterComponent;
 
@@ -52,6 +70,8 @@ Display a list of movies using the movies.json in the public folder.
 * load the movie.json in router.js
 * Initialize the movie list component and feed the data to the component
 * Handle the data in the movie list and let it create a movie model (in the list) for each movie in the JSON
+
+Make it pretty.
 
 TODO: Assignment 02:
 

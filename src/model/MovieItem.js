@@ -1,13 +1,23 @@
+import ListItem from '@mui/material/ListItem';
+import {Avatar, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+/*
+Function for displaying a movie item.
+ */
 function MovieItem({movie}) {
     const ext = '.jpg';
     const source = `/img/${movie.image_id}${ext}`;
-    console.log(source);
+
     return (
-        <li>
-            <h2>{movie.title}</h2>
-            <p>Release year: {movie.release_year}</p>
-            <img src={source}/>
-        </li>
+        <ListItem
+            alignItems='flex-start'
+            key={movie.id}>
+            <ListItemButton onClick={(event) => {alert('clicked');}}>
+                <ListItemAvatar>
+                    <Avatar src={source}/>
+                </ListItemAvatar>
+                <ListItemText primary={movie.title} secondary={movie.release_year}/>
+            </ListItemButton>
+        </ListItem>
     );
 }
 
