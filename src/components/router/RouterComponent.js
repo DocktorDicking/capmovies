@@ -1,7 +1,14 @@
 import MovieList from "../movie/MovieList";
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import React, {useState, useEffect} from "react";
-import {Box, Container, CssBaseline, ThemeProvider} from '@mui/material';
+import {Box} from '@mui/material';
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import AppBar from "@mui/material/AppBar";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IntroductionPage from "../pages/IntroductionPage";
+import CssBaseline from "@mui/material/CssBaseline";
 
 /**
  * Will be responsible for routing and data fetching.
@@ -29,26 +36,55 @@ function RouterComponent() {
         fetchData();
     }, []);
 
+    const drawerWidth = 300;
+
     return (
-        <Container maxWidth="md">
-            <Box component="h2">Movie List</Box>
-            <Box component="div"
-                 sx={{
-                     p: 2,
-                     border: 3,
-                     borderColor: "black",
-                     display: "inline-block",
-                     textAlign: "center"
-                 }}
-            >
-                <Router>
+        <Router>
+            <Box sx={{display: 'flex'}}>
+                <CssBaseline/>
+                <AppBar
+                    position="fixed"
+                    sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}
+                >
+                    <Toolbar>
+                        <Typography variant="h6" noWrap component="div">
+                            Cap Movies
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+
+                <Drawer
+                    sx={{
+                        width: drawerWidth,
+                        flexShrink: 0,
+                        '& .MuiDrawer-paper': {
+                            width: drawerWidth,
+                            boxSizing: 'border-box',
+                        },
+                    }}
+                    variant="permanent"
+                    anchor="left"
+                >
+                    <Toolbar/>
+
+                    <Divider/>
+                    <MovieList allMovies={allMovies}/>
+                    <Divider/>
+                </Drawer>
+                <Toolbar/>
+
+                <Box
+                    component="main"
+                    sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}
+                >
+                    <Toolbar/>
                     <Routes>
                         <Route path="/movie/:id" element={<div><p>TODO</p></div>}/>
-                        <Route path="/" element={<MovieList allMovies={allMovies}/>}/>
+                        <Route path="/" element={<IntroductionPage/>}/>
                     </Routes>
-                </Router>
+                </Box>
             </Box>
-        </Container>
+        </Router>
     );
 }
 
