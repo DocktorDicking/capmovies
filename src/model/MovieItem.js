@@ -1,17 +1,23 @@
 import ListItem from '@mui/material/ListItem';
 import {Avatar, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 /*
 Function for displaying a movie item.
  */
 function MovieItem({movie}) {
     const ext = '.jpg';
     const source = `/img/${movie.image_id}${ext}`;
+    const navigate = useNavigate();
+
+    const handleClick = (id) => {
+        navigate(`/movie/${id}`);
+    };
 
     return (
         <ListItem
             alignItems='flex-start'
             key={movie.id}>
-            <ListItemButton onClick={(event) => {alert('clicked: ' + movie.title);}}>
+            <ListItemButton onClick={() => handleClick(movie.id)}>
                 <ListItemAvatar>
                     <Avatar src={source}/>
                 </ListItemAvatar>

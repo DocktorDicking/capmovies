@@ -1,7 +1,7 @@
 import MovieList from "../movie/MovieList";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
 import React, {useState, useEffect} from "react";
-import {Autocomplete, Box, TextField} from '@mui/material';
+import {Box, IconButton, InputAdornment, TextField} from '@mui/material';
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import AppBar from "@mui/material/AppBar";
@@ -9,6 +9,8 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IntroductionPage from "../pages/IntroductionPage";
 import CssBaseline from "@mui/material/CssBaseline";
+import {AddCircle, Clear} from "@mui/icons-material";
+import MovieDetails from "../movie/MovieDetails";
 
 /**
  * Will be responsible for routing and data fetching.
@@ -21,11 +23,12 @@ function RouterComponent() {
     const [searchMovieText, setSearchMovieText] = useState(""); // State used for searching the movielist.
 
     // Logic for filtering the list which will result in a filteredMovies array.
-    // TODO: Move to seperate function where we can add more logic such as searching for year instead of title.
     const filteredMovies = searchMovieText
         ? allMovies.filter(movie =>
             movie.title.toLowerCase().includes(searchMovieText.toLowerCase()) ||
             movie.release_year.toString().includes(searchMovieText)) : allMovies;
+
+    const drawerWidth = 350;
 
     /*
     Just using fetch() does not work and will result in an endless loop when using 'useState()'
@@ -43,8 +46,6 @@ function RouterComponent() {
         }
         fetchData();
     }, []);
-
-    const drawerWidth = 300;
 
     /*
     The ui is build up within the <Router> component.
@@ -83,17 +84,32 @@ function RouterComponent() {
                     anchor="left"
                 >
                     <Toolbar>
-                        <Autocomplete
-                            disablePortal // Haves something to do with the way the list of matches is displayed
-                            id="auto-complete-movies"
-                            options={allMovies} //Array of object, data we want in the autocomplete
-                            getOptionLabel={(option) => option.title} //How to display the objects in the autocomplete
-                            //When the user changes the input, this will set the search string for the movie.
-                            onInputChange={(event, newInputValue) => {setSearchMovieText(newInputValue)}}
-                            sx={{ width: 300}}
-                            //Autocomplete related syntax for displaying.
-                            renderInput={(params) => <TextField {...params} label="Search"/>}
-                        />
+                        {/*Swapped out the Autocomplete component with a simple TextField component since the Autocomplete had to much features*/}
+                        <Box m={1}>
+                            <TextField
+                                label="Search Movie"
+                                value={searchMovieText}
+                                onChange={e => setSearchMovieText(e.target.value)}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                                size="large"
+                                                onClick={() => setSearchMovieText('')}
+                                            >
+                                                <Clear />
+                                            </IconButton>
+                                        </InputAdornment>
+                                    )
+                                }}
+                            />
+                        </Box>
+                        <Box m={1}>
+                            <IconButton onClick={() => console.log('Add new item')}>
+                                <AddCircle />
+                            </IconButton>
+                        </Box>
+
                     </Toolbar>
 
                     <Divider/>
@@ -108,7 +124,7 @@ function RouterComponent() {
                 >
                     <Toolbar/>
                     <Routes>
-                        <Route path="/movie/:id" element={<div><p>TODO</p></div>}/>
+                        <Route path="/movie/:id" element={<MovieDetails />}/>
                         <Route path="/" element={<IntroductionPage/>}/>
                     </Routes>
                 </Box>
@@ -132,12 +148,32 @@ Display a list of movies using the movies.json in the public folder.
 * Initialize the movie list component and feed the data to the component
 * Handle the data in the movie list and let it create a movie model (in the list) for each movie in the JSON
 
-Make it pretty.
+Result:
+
+Completed this assignment:
+-Created the needed components for the List and Movie object.
+-Installed MUI (Material UI) for the styling and templating.
+-Created a basic UI with MUI by creating a "main UI" with a content box.
+-Added the MovieList component to the UI inside the Drawer component.
+-Data gets fetched from the json file in the public folder and is displayed in the list.
+
+Take away:
+Learned about MUI and how to use it. Basic React flow (States, Effects, Router, Function-Components, Class-Components)
+
 
 TODO: Assignment 02:
 
-Implement search functionality. Seach should allow users to search for movies based on their title or release year.
+Implement search functionality. Search should allow users to search for movies based on their title or release year.
 Result should be displayed in real-time while the user is typing.
+
+Completed this assignment:
+-Added a TextField in the toolbar of the Drawer component.
+-The input is checked in real-time and filters the MovieList on name or year.
+
+Take Away:
+Learned about <Autocomplete/> component and <TextField/> and when to use them.
+Ran into rendering problems because of components relying on data that was nog there.
+Refreshed basic knowledge on array mapping and filtering.
 
 TODO: Assignment 03:
 
