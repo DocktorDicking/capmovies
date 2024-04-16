@@ -11,7 +11,7 @@ function MovieItem({movie}) {
         <ListItem
             alignItems='flex-start'
             key={movie.id}>
-            <ListItemButton onClick={(event) => {alert('clicked');}}>
+            <ListItemButton onClick={(event) => {alert('clicked: ' + movie.title);}}>
                 <ListItemAvatar>
                     <Avatar src={source}/>
                 </ListItemAvatar>
