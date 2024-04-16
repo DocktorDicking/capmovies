@@ -9,7 +9,7 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IntroductionPage from "../pages/IntroductionPage";
 import CssBaseline from "@mui/material/CssBaseline";
-import {AddCircle, Clear} from "@mui/icons-material";
+import {AddCircle, Clear, Home} from "@mui/icons-material";
 import MovieDetails from "../movie/MovieDetails";
 
 /**
@@ -28,6 +28,7 @@ function RouterComponent() {
             movie.title.toLowerCase().includes(searchMovieText.toLowerCase()) ||
             movie.release_year.toString().includes(searchMovieText)) : allMovies;
 
+    const navigate = useNavigate();
     const drawerWidth = 350;
 
     /*
@@ -57,79 +58,81 @@ function RouterComponent() {
     the component that is associated with this route.
      */
     return (
-        <Router>
-            <Box sx={{display: 'flex'}}>
-                <CssBaseline/>
-                <AppBar
-                    position="fixed"
-                    sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}
-                >
-                    <Toolbar>
-                        <Typography variant="h6" noWrap component="div">
-                            Cap Movies
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
+        <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
+            <AppBar
+                position="fixed"
+                sx={{width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px`}}
+            >
+                <Toolbar>
+                    <Typography variant="h6" noWrap component="div">
+                        <IconButton onClick={() => navigate('/')}>
+                            <Home/>
+                        </IconButton>
+                        Cap Movies
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
-                <Drawer
-                    sx={{
+            <Drawer
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
                         width: drawerWidth,
-                        flexShrink: 0,
-                        '& .MuiDrawer-paper': {
-                            width: drawerWidth,
-                            boxSizing: 'border-box',
-                        },
-                    }}
-                    variant="permanent"
-                    anchor="left"
-                >
-                    <Toolbar>
-                        {/*Swapped out the Autocomplete component with a simple TextField component since the Autocomplete had to much features*/}
-                        <Box m={1}>
-                            <TextField
-                                label="Search Movie"
-                                value={searchMovieText}
-                                onChange={e => setSearchMovieText(e.target.value)}
-                                InputProps={{
-                                    endAdornment: (
-                                        <InputAdornment position="end">
-                                            <IconButton
-                                                size="large"
-                                                onClick={() => setSearchMovieText('')}
-                                            >
-                                                <Clear />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    )
-                                }}
-                            />
-                        </Box>
-                        <Box m={1}>
-                            <IconButton onClick={() => console.log('Add new item')}>
-                                <AddCircle />
-                            </IconButton>
-                        </Box>
+                        boxSizing: 'border-box',
+                    },
+                }}
+                variant="permanent"
+                anchor="left"
+            >
+                <Toolbar>
+                    {/*Swapped out the Autocomplete component with a simple TextField component since the Autocomplete had to much features*/}
+                    <Box m={1}>
+                        <TextField
+                            label="Search Movie"
+                            value={searchMovieText}
+                            onChange={e => setSearchMovieText(e.target.value)}
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            size="large"
+                                            onClick={() => setSearchMovieText('')}
+                                        >
+                                            <Clear/>
+                                        </IconButton>
+                                    </InputAdornment>
+                                )
+                            }}
+                        />
+                    </Box>
+                    <Box m={1}>
+                        <IconButton onClick={() => navigate('/create')}>
+                            <AddCircle/>
+                        </IconButton>
+                    </Box>
 
-                    </Toolbar>
+                </Toolbar>
 
-                    <Divider/>
-                    <MovieList allMovies={filteredMovies}/>
-                    <Divider/>
-                </Drawer>
+                <Divider/>
+                <MovieList allMovies={filteredMovies}/>
+                <Divider/>
+            </Drawer>
+            <Toolbar/>
+
+            <Box
+                component="main"
+                sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}
+            >
                 <Toolbar/>
-
-                <Box
-                    component="main"
-                    sx={{flexGrow: 1, bgcolor: 'background.default', p: 3}}
-                >
-                    <Toolbar/>
-                    <Routes>
-                        <Route path="/movie/:id" element={<MovieDetails />}/>
-                        <Route path="/" element={<IntroductionPage/>}/>
-                    </Routes>
-                </Box>
+                <Routes>
+                    <Route path="/movie/:id" element={<MovieDetails/>}/>
+                    <Route path="/create" element={<MovieDetails/>}/>
+                    <Route path="/" element={<IntroductionPage/>}/>
+                </Routes>
             </Box>
-        </Router>
+        </Box>
     );
 }
 

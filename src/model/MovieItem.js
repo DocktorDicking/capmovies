@@ -7,7 +7,7 @@ Function for displaying a movie item.
 function MovieItem({movie}) {
     const ext = '.jpg';
     const source = `/img/${movie.image_id}${ext}`;
-    const navigate = useNavigate();
+    const navigate = useNavigate(); //react-router-dom hook we can use for navigation functionality.
 
     const handleClick = (id) => {
         navigate(`/movie/${id}`);
