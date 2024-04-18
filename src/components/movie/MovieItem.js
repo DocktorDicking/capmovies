@@ -9,8 +9,11 @@ function MovieItem({movie}) {
     const source = `/img/${movie.image_id}${ext}`;
     const navigate = useNavigate(); //react-router-dom hook we can use for navigation functionality.
 
+    //Add the clicked item to the state of the navigate so we can retrieve it after navigating.
     const handleClick = (id) => {
-        navigate(`/movie/${id}`);
+        navigate(`/movie/${id}`, {
+            state: {movie}
+        });
     };
 
     return (

@@ -1,5 +1,5 @@
 import MovieList from "../movie/MovieList";
-import {BrowserRouter as Router, Routes, Route, useNavigate} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import React, {useState, useEffect} from "react";
 import {Box, IconButton, InputAdornment, TextField} from '@mui/material';
 import Toolbar from "@mui/material/Toolbar";

@@ -1,4 +1,4 @@
-import MovieItem from "../../model/MovieItem";
+import MovieItem from "./MovieItem";
 import List from '@mui/material/List';
 
 

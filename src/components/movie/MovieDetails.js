@@ -1,11 +1,38 @@
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Box, Button, FormControl, Grid, Input, InputLabel, styled} from "@mui/material";
 import {Cloud, Image, Send} from "@mui/icons-material";
+import {useEffect, useState} from "react";
 
 function MovieDetails() {
-    let {id} = useParams();
+    //Might use this later for checking or something.
+    const {id} = useParams();
+    const location = useLocation();
     const navigate = useNavigate();
 
+    //Set data of movie into this state object if available.
+    const [movieState, setMovieState] = useState({
+        id: '',
+        title: '',
+        release_year: '',
+        image_id: ''
+    });
+
+    //Makes sure the useState object is updated when the value of the location.state.movie changes.
+    useEffect(() => {
+        if (location.state && location.state.movie) {
+            setMovieState(location.state.movie);
+        } else {
+            setMovieState({id: '', title: '', release_year: '', image_id: ''});
+        }
+    }, [location.state]);
+
+    console.log(movieState);
+
+    const handleChangeInput = (event) => {
+        //todo
+    };
+
+    // Applying custom style to an <Input/> so we can use it "hidden" within a button.
     const VisuallyHiddenInput = styled('input')({
         clip: 'rect(0 0 0 0)',
         clipPath: 'inset(50%)',
@@ -19,7 +46,6 @@ function MovieDetails() {
     });
 
     //TODO: Add keys to input fields and styling.
-
     return (
         <Box
             component="form"
@@ -50,7 +76,8 @@ function MovieDetails() {
             >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Image style={{width: '100%', height: '300px'}}/>
+                        {/*TODO: seems like this Image is not updated after render or something? Gotta check if the path is correct. */}
+                        <Image style={{width: '100%', height: '300px'}} src={`/img/${movieState.image_id}.jpg`}/>
                     </Grid>
 
                     <Grid item xs={12}>
@@ -61,6 +88,7 @@ function MovieDetails() {
                             }}
                         >
                             <Button
+                                disabled={true}
                                 component="label"
                                 role={undefined}
                                 variant="contained"
@@ -74,15 +102,15 @@ function MovieDetails() {
                     </Grid>
                     <Grid item xs={12}>
                         <FormControl variant="standard" fullWidth>
-                            <InputLabel htmlFor="movie-title">Movie title</InputLabel>
-                            <Input id="movie-title" type="text"/>
+                            <InputLabel htmlFor="movie-title" shrink>Movie title</InputLabel>
+                            <Input id="movie-title" type="text" value={movieState.title}/>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12}>
                         <FormControl variant="standard" fullWidth>
-                            <InputLabel htmlFor="release-year">Release year</InputLabel>
-                            <Input id="release-year" type="text"/>
+                            <InputLabel htmlFor="release-year" shrink>Release year</InputLabel>
+                            <Input id="release-year" type="text" value={movieState.release_year}/>
                         </FormControl>
                     </Grid>
 
@@ -91,6 +119,7 @@ function MovieDetails() {
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
+                                padding: 2,
                                 gap: 2
                             }}
                         >
