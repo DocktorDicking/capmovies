@@ -1,7 +1,8 @@
 import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {Box, Button, FormControl, Grid, Input, InputLabel, styled} from "@mui/material";
-import {Cloud, Image, Send} from "@mui/icons-material";
+import {Cloud, Send} from "@mui/icons-material";
 import {useEffect, useState} from "react";
+import ImageComponent from "../custom/ImageComponent";
 
 function MovieDetails() {
     //Might use this later for checking or something.
@@ -26,8 +27,6 @@ function MovieDetails() {
         }
     }, [location.state]);
 
-    console.log(movieState);
-
     const handleChangeInput = (event) => {
         //todo
     };
@@ -44,8 +43,6 @@ function MovieDetails() {
         whiteSpace: 'nowrap',
         width: 1,
     });
-
-    console.log(`/img/${movieState.image_id}.jpg`);
 
     //TODO: Add keys to input fields and styling.
     return (
@@ -78,22 +75,22 @@ function MovieDetails() {
             >
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        {/*TODO: seems like this Image is not updated after render or something? Gotta check if the path is correct. */}
-                        {/*<Image style={{width: '100%', height: '300px'}} src={`/img/${movieState.image_id}.jpg`}/>*/}
-                        <Box
-                            component="img"
-                            sx={{
-                                display: 'fles',
-                                justifyContent: 'center',
-                                maxWidth: "100%",
-                                maxHeight: 450,
-                                height: "auto",
-                                width: "auto",
-                                objectFit: "contain",
-                                m: "auto"
-                            }}
-                            src={`/img/${movieState.image_id}.jpg`}
-                        />
+                        <ImageComponent imgState={movieState}/>
+
+                        {/*<Box*/}
+                        {/*    component="img"*/}
+                        {/*    sx={{*/}
+                        {/*        display: 'flex',*/}
+                        {/*        justifyContent: 'center',*/}
+                        {/*        maxWidth: "100%",*/}
+                        {/*        maxHeight: 450,*/}
+                        {/*        height: "auto",*/}
+                        {/*        width: "auto",*/}
+                        {/*        objectFit: "contain",*/}
+                        {/*        m: "auto"*/}
+                        {/*    }}*/}
+                        {/*    src={`/img/${movieState.image_id}.jpg`}*/}
+                        {/*/>*/}
                     </Grid>
 
                     <Grid item xs={12}>
