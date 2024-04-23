@@ -140,7 +140,7 @@ export default RouterComponent;
 
 
 /*
-TODO: Assignment 01:
+Assignment 01:
 
 * Create basic React application
 
@@ -164,7 +164,7 @@ Take away:
 Learned about MUI and how to use it. Basic React flow (States, Effects, Router, Function-Components, Class-Components)
 
 
-TODO: Assignment 02:
+Assignment 02:
 
 Implement search functionality. Search should allow users to search for movies based on their title or release year.
 Result should be displayed in real-time while the user is typing.

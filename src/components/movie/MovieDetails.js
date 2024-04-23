@@ -45,6 +45,8 @@ function MovieDetails() {
         width: 1,
     });
 
+    console.log(`/img/${movieState.image_id}.jpg`);
+
     //TODO: Add keys to input fields and styling.
     return (
         <Box
@@ -77,7 +79,21 @@ function MovieDetails() {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         {/*TODO: seems like this Image is not updated after render or something? Gotta check if the path is correct. */}
-                        <Image style={{width: '100%', height: '300px'}} src={`/img/${movieState.image_id}.jpg`}/>
+                        {/*<Image style={{width: '100%', height: '300px'}} src={`/img/${movieState.image_id}.jpg`}/>*/}
+                        <Box
+                            component="img"
+                            sx={{
+                                display: 'fles',
+                                justifyContent: 'center',
+                                maxWidth: "100%",
+                                maxHeight: 450,
+                                height: "auto",
+                                width: "auto",
+                                objectFit: "contain",
+                                m: "auto"
+                            }}
+                            src={`/img/${movieState.image_id}.jpg`}
+                        />
                     </Grid>
 
                     <Grid item xs={12}>

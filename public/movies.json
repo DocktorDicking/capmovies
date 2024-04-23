@@ -9,6 +9,7 @@
     {"id": 7, "title": "The Dark Knight", "release_year": 2008, "image_id": "img07"},
     {"id": 8, "title": "The Matrix", "release_year": 1999, "image_id": "img08"},
     {"id": 9, "title": "The Lord of the Rings: The Return of the King", "release_year": 2003, "image_id": "img09"},
-    {"id": 10, "title": "Interstellar", "release_year": 2014, "image_id": "img10"}
+    {"id": 10, "title": "Interstellar", "release_year": 2014, "image_id": "img10"},
+    {"id": 11, "title": "Invalid Image", "release_year": 2222, "image_id": "img100"}
   ]
 }
