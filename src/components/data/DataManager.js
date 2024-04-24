@@ -11,7 +11,7 @@ const DataManager = {
      * @return {Promise<*>}
      */
     async fetchMovies() {
-        const response = await fetch('movies.json');
+        const response = await fetch('/movies.json');
         const data = await response.json();
         return data.movies;
     },
@@ -24,7 +24,7 @@ const DataManager = {
      * @param id
      */
     getMovie(movies, id) {
-        const movie = movies.find((movie) => movie.id === id);
+        const movie = movies.find((movie) => movie.id ===  parseInt(id));
 
         // Same as shorthand if, this uses a logical || (OR) operation which results in a "short-circuit evaluation"
         return movie || {};

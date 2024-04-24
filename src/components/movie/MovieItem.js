@@ -11,9 +11,7 @@ function MovieItem({movie}) {
 
     //Add the clicked item to the state of the navigate so we can retrieve it after navigating.
     const handleClick = (id) => {
-        navigate(`/movie/${id}`, {
-            state: {movie}
-        });
+        navigate(`/movie/${id}`);
     };
 
     return (

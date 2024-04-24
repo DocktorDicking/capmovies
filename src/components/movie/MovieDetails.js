@@ -1,13 +1,13 @@
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, FormControl, Grid, Input, InputLabel, styled} from "@mui/material";
 import {Cloud, Send} from "@mui/icons-material";
 import {useEffect, useState} from "react";
 import ImageComponent from "../custom/ImageComponent";
+import DataManager from "../data/DataManager";
 
 function MovieDetails() {
     //Might use this later for checking or something.
     const {id} = useParams();
-    const location = useLocation();
     const navigate = useNavigate();
 
     //Set data of movie into this state object if available.
@@ -18,14 +18,16 @@ function MovieDetails() {
         image_id: ''
     });
 
-    //Makes sure the useState object is updated when the value of the location.state.movie changes.
     useEffect(() => {
-        if (location.state && location.state.movie) {
-            setMovieState(location.state.movie);
-        } else {
-            setMovieState({id: '', title: '', release_year: '', image_id: ''});
+        const fetchData = async () => {
+            // Using our custom DataManager here to keep fetching logic in one place.
+            const moviesData = await DataManager.fetchMovies();
+            const movie = DataManager.getMovie(moviesData, id);
+            setMovieState(movie);
         }
-    }, [location.state]);
+        // debugger;
+        fetchData();
+    }, [id]); // This effect needs to be triggered whenever the movie id param changes.
 
     const handleChangeInput = (event) => {
         //todo
@@ -140,7 +142,7 @@ function MovieDetails() {
                                 Cancel
                             </Button>
                             <Button variant="contained" endIcon={<Send/>}>
-                                Send
+                                {movieState.id ? 'Save' : 'Create'}
                             </Button>
                         </Box>
                     </Grid>
