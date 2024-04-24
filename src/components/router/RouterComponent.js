@@ -11,6 +11,7 @@ import IntroductionPage from "../pages/IntroductionPage";
 import CssBaseline from "@mui/material/CssBaseline";
 import {AddCircle, Clear, Home} from "@mui/icons-material";
 import MovieDetails from "../movie/MovieDetails";
+import DataManager from "../data/DataManager";
 
 /**
  * Will be responsible for routing and data fetching.
@@ -41,10 +42,11 @@ function RouterComponent() {
      */
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('movies.json');
-            const data = await response.json();
-            setMovies(data.movies);
+            // Using our custom DataManager here to keep fetching logic in one place.
+            const moviesData = await DataManager.fetchMovies();
+            setMovies(moviesData);
         }
+
         fetchData();
     }, []);
 
