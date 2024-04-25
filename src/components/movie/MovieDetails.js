@@ -5,6 +5,13 @@ import {useEffect, useState} from "react";
 import ImageComponent from "../custom/ImageComponent";
 import DataManager from "../data/DataManager";
 
+/**
+ * Component responsible for displaying details of a selected Movie and to handle changes/new movies added to the dataset.
+ * This component gets a state hook function passed in its parameter that is used to trigger a useEffect in another component.
+ * @param setMoviesChanged
+ * @return {JSX.Element}
+ * @constructor
+ */
 function MovieDetails({setMoviesChanged}) {
     //Might use this later for checking or something.
     const {id} = useParams();
