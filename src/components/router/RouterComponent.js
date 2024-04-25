@@ -189,20 +189,37 @@ Learned about <Autocomplete/> component and <TextField/> and when to use them.
 Ran into rendering problems because of components relying on data that was nog there.
 Refreshed basic knowledge on array mapping and filtering.
 
-TODO: Assignment 03:
+Assignment 03:
 
 Create a simple form that allows users to add new movies to the list displayed.
 The form should have fields for the movie title, release year and img.
 After submitting the movie should be added to the list and be displayed.
 
-TODO: Assignment 04:
+Completed this assignment:
+- Skipped the saving of images due to de lack of file server and not caring enough right now to make a hassle out of it.
+- Introduced a DataManager class that is responsible for fetching and CRU(D).
+- Implemented the DataManager in multiple components that interact with the dataset.
+- Figured out you can pass state hook methods to other components so you can trigger another components useEffect hook
+
+Take Away:
+Learned how to work with multiple hooks such as: useState, useEffect, useNavigation.
+Learned that you cen pass a hook as a prop to a child component.
+Learned more about the scoping of React and the component tree.
+
+Assignment 04:
 
 Create a page that displays the details of a single movie when its title is clicked.
-The movie details should include title, release year, cover image and a short description?
+The movie details should include title, release year, cover image
+
+Completed this assignment:
+During assignment 03.
+I reused the "create" component.
 
 TODO: Assignment 05:
 
 Create a custom hook in React that formats the movie title in a specific way.
 The hook could format the title in all caps or title case.
+
+
 
  */
