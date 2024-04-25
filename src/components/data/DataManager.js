@@ -31,6 +31,10 @@ const DataManager = {
         return movies;
     },
 
+    getMovies() {
+        //todo return all movies?
+    },
+
     /**
      * Searches the allMovies array for the movie with the given id and returns this movie.
      * Will return a movie if the movie exists. Will return an empty object when there is no movie with the given id.
@@ -50,17 +54,69 @@ const DataManager = {
     },
 
     /**
-     *
+     * Tries to save the given movie object to the localStorage of the browser.
      * @param movie
      */
     saveMovie(movie) {
-        //Destructured the object so my IDE stops screaming warnings.
-        const {id, title, release_year, img_id} = movie;
-        console.log(movie.id, movie.title);
+        let movies;
+
+        if (JSON.parse(localStorage.getItem("movies"))) {
+            movies = JSON.parse(localStorage.getItem("movies"));
+
+            // Check if the movie object we are trying to save exists in the movies array
+            if (movies.find((m) => m.id === parseInt(movie.id))) {
+                // Using map to update the movie object based on the given movie.id.
+                movies.map((m) => {
+                    if (m.id === parseInt(movie.id)) {
+                        m.title = movie.title;
+                        m.release_year = movie.release_year;
+                        // m.image_id = movie.image_id;
+                    }
+                });
+
+                // Save the updated movies array in the localStorage.
+                localStorage.setItem("movies", JSON.stringify(movies));
+                return true;
+            } else {
+                // Give the new movie object the next available id.
+                movie.id = this.getNextId(movies);
+
+                // Save the movie to the movies array and update the localStorage.
+                movies.push(movie);
+                localStorage.setItem("movies", JSON.stringify(movies));
+                return true;
+            }
+        }
+
+        return false;
+
     },
 
+    /**
+     * Will return the nextId available for a new movie object.
+     * This method will be called when a new movie will be added.
+     * @param movies
+     * @return {number}
+     */
+    getNextId(movies) {
+        let highestId = 1;
+
+        // Loop through the movies array and check each movie (m) to determine the current highest id.
+        movies.forEach(m => {
+            if (m.id > highestId) highestId = m.id;
+        });
+
+        // Finally return the new id which is the found highest id + 1
+        return (highestId + 1);
+    },
+
+    /**
+     * We might implement this but since we do not have a decent filesystem atm we cannot save images.
+     * Using base64 for images is a bad idea for prod environments since the base64 will probably take up more space
+     * then just the image.
+     */
     uploadImage() {
-        //todo: not sure if we can do this in this 'demo' since we do not have a server or something where we can actually save the file to.
+        //todo: we might do this but this requires some way of saving an image to the LocalStorage. Maybe with Base64 encoding.
     }
 }
 
