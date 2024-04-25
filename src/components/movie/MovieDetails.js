@@ -9,28 +9,44 @@ function MovieDetails() {
     //Might use this later for checking or something.
     const {id} = useParams();
     const navigate = useNavigate();
+    let initialMovieState = {id: '', title: '', release_year: '', image_id: ''};
 
     //Set data of movie into this state object if available.
-    const [movieState, setMovieState] = useState({
-        id: '',
-        title: '',
-        release_year: '',
-        image_id: ''
-    });
+    const [movieState, setMovieState] = useState(initialMovieState);
 
     useEffect(() => {
         const fetchData = async () => {
-            // Using our custom DataManager here to keep fetching logic in one place.
-            const moviesData = await DataManager.fetchMovies();
-            const movie = DataManager.getMovie(moviesData, id);
-            setMovieState(movie);
+            if (id) {
+                // Since the movies data is already in localStorage we can just get the movie. See DataManager.js.
+                let movie = DataManager.getMovie(id);
+                setMovieState(movie);
+            } else {
+                setMovieState(initialMovieState);
+            }
         }
         // debugger;
         fetchData();
     }, [id]); // This effect needs to be triggered whenever the movie id param changes.
 
-    const handleChangeInput = (event) => {
-        //todo
+    /*
+    This method handles all changes made to the current movie object.
+    ...movieState clones the current movie in the state (object) as a new movie object.
+    [event.target.name]: even.target.value will set the values on the new object that is changed by the user in the
+    input fields. [event.target.name] references the "name" property on the JSX element and 'event.target.value'
+    points to the current value in the input field.
+
+    This method will be triggered by every key/change made to the input field.
+     */
+    const handleInputChange = (event) => {
+        setMovieState({
+            ...movieState, [event.target.name]: event.target.value
+        });
+    };
+
+    const handleSaveClick = () => {
+        DataManager.saveMovie(movieState);
+        console.log('Saved successfully?');
+        debugger;
     };
 
     // Applying custom style to an <Input/> so we can use it "hidden" within a button.
@@ -118,14 +134,14 @@ function MovieDetails() {
                     <Grid item xs={12}>
                         <FormControl variant="standard" fullWidth>
                             <InputLabel htmlFor="movie-title" shrink>Movie title</InputLabel>
-                            <Input id="movie-title" type="text" value={movieState.title}/>
+                            <Input id="movie-title" name="title" type="text" value={movieState.title} onChange={handleInputChange}/>
                         </FormControl>
                     </Grid>
 
                     <Grid item xs={12}>
                         <FormControl variant="standard" fullWidth>
                             <InputLabel htmlFor="release-year" shrink>Release year</InputLabel>
-                            <Input id="release-year" type="text" value={movieState.release_year}/>
+                            <Input id="release-year" name="release_year" type="text" value={movieState.release_year} onChange={handleInputChange}/>
                         </FormControl>
                     </Grid>
 
@@ -141,7 +157,7 @@ function MovieDetails() {
                             <Button onClick={() => navigate('/')}>
                                 Cancel
                             </Button>
-                            <Button variant="contained" endIcon={<Send/>}>
+                            <Button variant="contained" endIcon={<Send/>} onClick={handleSaveClick}>
                                 {movieState.id ? 'Save' : 'Create'}
                             </Button>
                         </Box>

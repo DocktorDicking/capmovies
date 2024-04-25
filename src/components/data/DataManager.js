@@ -6,32 +6,57 @@
 const DataManager = {
 
     /**
-     * Async function to fetch the JSON blob movies.json.
-     * Trying to mimic an actual Data helper object.
+     * Async function to fetch the JSON blob movies.json from the public folder in this project.
+     * It will save the Blob in the browsers localstorage as a "database" where we can kind of persist data for this
+     * demo application.
+     *
      * @return {Promise<*>}
      */
     async fetchMovies() {
-        const response = await fetch('/movies.json');
-        const data = await response.json();
-        return data.movies;
+        let movies;
+
+        //Check if the movies JSON is available in the localStorage or fetch the JSON blob from /public folder.
+        if (localStorage.getItem("movies")) {
+            // Part after '||' is a fallback.
+            movies = JSON.parse(localStorage.getItem("movies") || '[]');
+        } else {
+            // Fetch movies.json from /public folder and save to localStorage.
+            const response = await fetch('/movies.json');
+            const data = await response.json();
+            movies = data.movies;
+
+            localStorage.setItem("movies", JSON.stringify(movies));
+        }
+
+        return movies;
     },
 
     /**
      * Searches the allMovies array for the movie with the given id and returns this movie.
      * Will return a movie if the movie exists. Will return an empty object when there is no movie with the given id.
-     * @return movie {id, title, release_year, img_id} || {}
-     * @param movies
+     * @return movie || {}
      * @param id
      */
-    getMovie(movies, id) {
-        const movie = movies.find((movie) => movie.id ===  parseInt(id));
+    getMovie(id) {
+        if (localStorage.getItem("movies")) {
+            const movies = JSON.parse(localStorage.getItem("movies"));
+            const movie = movies.find((movie) => movie.id ===  parseInt(id));
 
-        // Same as shorthand if, this uses a logical || (OR) operation which results in a "short-circuit evaluation"
-        return movie || {};
+            // Same as shorthand if, this uses a logical || (OR) operation which results in a "short-circuit evaluation"
+            return movie || {};
+        }
+
+        return {};
     },
 
-    saveMovie({id, title, release_year, img_id}) {
-        //todo
+    /**
+     *
+     * @param movie
+     */
+    saveMovie(movie) {
+        //Destructured the object so my IDE stops screaming warnings.
+        const {id, title, release_year, img_id} = movie;
+        console.log(movie.id, movie.title);
     },
 
     uploadImage() {
