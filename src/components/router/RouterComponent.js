@@ -14,7 +14,7 @@ import MovieDetails from "../movie/MovieDetails";
 import DataManager from "../data/DataManager";
 
 /**
- * Will be responsible for routing and data fetching.
+ * This component is responsible for the basic layout of the application and Routing the main content area.
  *
  * @returns {JSX.Element}
  * @constructor
@@ -22,8 +22,16 @@ import DataManager from "../data/DataManager";
 function RouterComponent() {
     const [allMovies, setMovies] = useState([]); // Used when all movie data is fetched.
     const [searchMovieText, setSearchMovieText] = useState(""); // State used for searching the movielist.
+    const [moviesChanged, setMoviesChanged] = useState(false); // State will trigger useEffect whenever a movie changes in Details component.
 
-    // Logic for filtering the list which will result in a filteredMovies array.
+    /*
+    Logic to filter the movies based on the text input in the search bar.
+    This logic will be triggered everytime the component renders, due to the fact the 'searchMovieText' state variable
+    is linked to the searchbar it will trigger a rerender everytime someone changes the value of 'searchMovieText'.
+
+    The state is updated because of this property on the Searchbar: onChange={e => setSearchMovieText(e.target.value)}
+    onChange will trigger the 'setSearchMovieText' everytime the input changes.
+     */
     const filteredMovies = searchMovieText
         ? allMovies.filter(movie =>
             movie.title.toLowerCase().includes(searchMovieText.toLowerCase()) ||
@@ -45,10 +53,11 @@ function RouterComponent() {
             // Using our custom DataManager here to keep fetching logic in one place.
             const moviesData = await DataManager.fetchMovies();
             setMovies(moviesData);
+            setMoviesChanged(false);
         }
 
         fetchData();
-    }, []);
+    }, [moviesChanged]);
 
     /*
     The ui is build up within the <Router> component.
@@ -129,7 +138,7 @@ function RouterComponent() {
             >
                 <Toolbar/>
                 <Routes>
-                    <Route path="/movie/:id" element={<MovieDetails/>}/>
+                    <Route path="/movie/:id" element={<MovieDetails setMoviesChanged={setMoviesChanged}/>}/>
                     <Route path="/create" element={<MovieDetails/>}/>
                     <Route path="/" element={<IntroductionPage/>}/>
                 </Routes>

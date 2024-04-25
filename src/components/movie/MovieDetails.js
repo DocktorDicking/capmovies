@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import ImageComponent from "../custom/ImageComponent";
 import DataManager from "../data/DataManager";
 
-function MovieDetails() {
+function MovieDetails({setMoviesChanged}) {
     //Might use this later for checking or something.
     const {id} = useParams();
     const navigate = useNavigate();
@@ -43,10 +43,20 @@ function MovieDetails() {
         });
     };
 
+    /*
+    This method will be called whenever a user clicks the 'Save' button.
+    The method calls the DataManager and will try to save the given movieState to localStorage.
+    Finally setMovieChanged() will be set to true to signal the MovieList component that the dataset haves been changed
+    which will result in the list being refreshed.
+
+    The method 'setMoviesChanged' is passed along from the RouterComponent (where the MovieList lives) and can be seen
+    as a prop at the top of this file 'function MovieDetails({setMoviesChanged})'. Because the state variable 'moviesChanged'
+    is in the deps array of the useEffect in the MovieList component it will trigger the useEffect to be run again.
+     */
     const handleSaveClick = () => {
-        DataManager.saveMovie(movieState);
-        console.log('Saved successfully?');
-        debugger;
+        if (DataManager.saveMovie(movieState)) {
+            setMoviesChanged(true);
+        }
     };
 
     // Applying custom style to an <Input/> so we can use it "hidden" within a button.
