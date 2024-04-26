@@ -12,6 +12,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import {AddCircle, Clear, Home} from "@mui/icons-material";
 import MovieDetails from "../movie/MovieDetails";
 import DataManager from "../data/DataManager";
+import {useOnlineStatus} from "../custom/hook/useOnlineStatusHook";
 
 /**
  * This component is responsible for the basic layout of the application and Routing the main content area.
@@ -39,6 +40,7 @@ function RouterComponent() {
 
     const navigate = useNavigate();
     const drawerWidth = 350;
+    const isOnline = useOnlineStatus();
 
     /*
     Just using fetch() does not work and will result in an endless loop when using 'useState()'
@@ -80,7 +82,7 @@ function RouterComponent() {
                         <IconButton onClick={() => navigate('/')}>
                             <Home/>
                         </IconButton>
-                        Cap Movies
+                        Cap Movies || You are currently: {isOnline ? '✅ Connected' : '❌ Disconnected'} ||
                     </Typography>
                 </Toolbar>
             </AppBar>
