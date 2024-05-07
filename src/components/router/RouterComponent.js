@@ -217,11 +217,12 @@ Completed this assignment:
 During assignment 03.
 I reused the "create" component.
 
-TODO: Assignment 05:
+Assignment 05:
 
 Create a custom hook in React that formats the movie title in a specific way.
 The hook could format the title in all caps or title case.
 
-
+Completed this assignment:
+added custom hooks.
 
  */
