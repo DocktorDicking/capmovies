@@ -1,6 +1,7 @@
 import ListItem from '@mui/material/ListItem';
 import {Avatar, ListItemAvatar, ListItemButton, ListItemText} from "@mui/material";
 import { useNavigate } from 'react-router-dom';
+import {useAllCapsHook} from "../custom/hook/useAllCapsHook";
 /*
 Function for displaying a movie item.
  */
@@ -22,7 +23,7 @@ function MovieItem({movie}) {
                 <ListItemAvatar>
                     <Avatar src={source}/>
                 </ListItemAvatar>
-                <ListItemText primary={movie.title} secondary={movie.release_year}/>
+                <ListItemText primary={useAllCapsHook(movie.title)} secondary={movie.release_year}/>
             </ListItemButton>
         </ListItem>
     );
